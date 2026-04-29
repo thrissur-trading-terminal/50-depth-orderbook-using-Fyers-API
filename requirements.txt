@@ -1,0 +1,54 @@
+# ─────────────────────────────────────────────
+# Fyers 50-Depth Order Book Dashboard
+# requirements.txt
+# ─────────────────────────────────────────────
+
+# ── Fyers API (websocket + REST) ──────────────
+fyers-apiv3
+
+# ── Web Dashboard Framework ───────────────────
+dash>=2.17.0                  # Core Plotly Dash framework
+dash-bootstrap-components     # Bootstrap layout components for Dash
+dash-extensions              # Extra Dash utilities (e.g. WebSocket, EventListener)
+
+# ── Plotting & Visualization ──────────────────
+plotly>=5.22.0               # Interactive charts (heatmaps, bar charts, candlestick)
+
+# ── Data Handling ─────────────────────────────
+pandas>=2.2.0                # DataFrames for order book snapshots & time-series
+numpy>=1.26.0                # Numerical ops (microprice, imbalance calculations)
+
+# ── Async / Concurrency ───────────────────────
+asyncio-throttle             # Rate-limiting for async loops
+websockets                   # Low-level WebSocket support (complements Fyers WS)
+
+# ── Time & Scheduling ─────────────────────────
+APScheduler>=3.10.0          # Schedule periodic tasks (snapshot saves, alerts)
+pytz                         # Timezone handling (IST for NSE sessions)
+
+# ── Storage ───────────────────────────────────
+sqlalchemy>=2.0.0            # ORM layer for tick/depth storage
+# Uncomment one of these depending on your DB choice:
+# psycopg2-binary            # PostgreSQL driver
+# aiosqlite                  # Async SQLite (good for local/dev)
+
+# ── Caching & Pub-Sub ─────────────────────────
+redis                        # Cache latest depth snapshots; pub-sub between WS and Dash
+hiredis                      # Fast Redis parser (optional but recommended)
+
+# ── Configuration & Secrets ───────────────────
+python-dotenv                # Load .env for client_id, tokens
+
+# ── Logging & Monitoring ──────────────────────
+loguru                       # Structured logging (replaces standard logging)
+
+# ── Utilities ─────────────────────────────────
+requests==2.31.0             # Pinned to match fyers-apiv3 hard dependency
+ujson                        # Fast JSON parsing for high-frequency WS messages
+python-dateutil              # Flexible date parsing
+
+# ── Testing (optional but recommended) ────────
+pytest
+pytest-asyncio               # Async test support
+
+protobuf==3.20.3             # Required by fyers-apiv3 TBT websocket (pb2 imports)
