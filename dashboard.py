@@ -126,9 +126,12 @@ NEUT_COL  = "#c8d0e0"
 BG        = "#0d0f14"
 CARD_BG   = "#13161e"
 BORDER    = "#1e2330"
-ACCENT    = "#f0b429"
+ACCENT    = "#E8722A"
 TEXT_DIM  = "#5a6480"
 TEXT_MAIN = "#e2e8f4"
+# Shiny edge colours
+EDGE_BRIGHT = "#2a3a5c"       # bright border
+EDGE_GLOW   = "rgba(80,140,255,0.12)"  # outer glow
 
 # ─── Dash app ─────────────────────────────────────────────────────────────────
 
@@ -136,16 +139,17 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[
         dbc.themes.CYBORG,
-        "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap",
+        "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Barlow+Condensed:wght@600;700;800&display=swap",
     ],
     title="Thrissur Trading Terminal — 50 Depth Order Book",
 )
 
 CARD = {
     "background": CARD_BG,
-    "border": f"1px solid {BORDER}",
+    "border": f"1px solid {EDGE_BRIGHT}",
     "borderRadius": "8px",
     "padding": "18px",
+    "boxShadow": f"0 0 0 1px {EDGE_GLOW}, 0 4px 24px rgba(0,0,0,0.5)",
 }
 
 def stat_box(label, id_val, color=TEXT_MAIN):
@@ -156,7 +160,9 @@ def stat_box(label, id_val, color=TEXT_MAIN):
         html.Div("—", id=id_val, style={"fontSize": "20px", "fontWeight": "600",
                                          "fontFamily": "JetBrains Mono", "color": color}),
     ], style={"padding": "12px 16px", "background": "#0d0f14",
-              "borderRadius": "6px", "border": f"1px solid {BORDER}"})
+              "borderRadius": "6px",
+              "border": f"1px solid {EDGE_BRIGHT}",
+              "boxShadow": f"0 0 0 1px {EDGE_GLOW}, inset 0 1px 0 rgba(255,255,255,0.04)"})
 
 app.layout = html.Div(style={"background": BG, "minHeight": "100vh",
                               "fontFamily": "JetBrains Mono", "color": TEXT_MAIN,
@@ -165,10 +171,10 @@ app.layout = html.Div(style={"background": BG, "minHeight": "100vh",
     # ── Header ──
     html.Div([
         html.Div([
-            html.Span("Thrissur Trading Terminal", style={"fontFamily": "Syne", "fontSize": "22px",
+            html.Span("Thrissur Trading Terminal", style={"fontFamily": "Barlow Condensed", "fontSize": "24px",
                                      "fontWeight": "800", "color": ACCENT,
                                      "letterSpacing": "-0.02em"}),
-            html.Span(" · 50 Depth Order Book", style={"fontFamily": "Syne", "fontSize": "18px",
+            html.Span(" · 50 Depth Order Book", style={"fontFamily": "Barlow Condensed", "fontSize": "18px",
                                              "fontWeight": "700", "color": TEXT_DIM,
                                              "letterSpacing": "-0.01em"}),
             html.Div("Open Source · Powered by Fyers API", style={
@@ -192,7 +198,7 @@ app.layout = html.Div(style={"background": BG, "minHeight": "100vh",
 
     # ── Instrument name banner ──
     html.Div(id="instrument-banner", style={
-        "fontFamily": "Syne", "fontSize": "20px", "fontWeight": "700",
+        "fontFamily": "Barlow Condensed", "fontSize": "20px", "fontWeight": "700",
         "color": TEXT_MAIN, "letterSpacing": "0.04em",
         "marginBottom": "16px", "paddingLeft": "4px",
     }),
